@@ -123,7 +123,3 @@ class Scraper(BeautifulSoup):
         self.markup = process.stdout.decode("utf-8")
         self.__init__(self.markup, 'html.parser')
         return self.markup
-
-test = Scraper()
-test.render_page("https://careers.celestica.com/search/?createNewAlert=false&q=&locationsearch=Romania&startrow=10")
-print(test.prettify())

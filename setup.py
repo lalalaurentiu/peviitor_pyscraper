@@ -1,15 +1,19 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='peviitor_pyscraper',
     version='0.0.3',
     description='A simple scraper',
-    url="",
+    url="https://github.com/lalalaurentiu/peviitor_pyscraper",
     author='Laurentiu Baluta',
     author_email="contact@laurentiumarian.ro",
     license='MIT',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 
-    
     packages=find_packages(),
 
     install_requires=[

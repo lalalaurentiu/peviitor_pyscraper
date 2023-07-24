@@ -4,39 +4,40 @@ import io
 import subprocess
 
 class Scraper(BeautifulSoup):
-    """
-    Scraper class for scraping data from websites.
+    
+    def __init__(self, markup="", features=None, builder=None, parse_only=None, from_encoding=None, exclude_encodings=None, element_classes=None, **kwargs):
+        """
+        Initialize Scraper class.
 
-    Attributes:
-        markup (str): HTML markup to be parsed.
-        features (str): HTML parser to be used.
-        builder (TreeBuilder): TreeBuilder to be used.
-        parse_only (SoupStrainer): SoupStrainer to be used.
-        from_encoding (str): Encoding to be used.
-        exclude_encodings (list): Encodings to be excluded.
-        element_classes (dict): Dictionary of element classes.
-        **kwargs: Keyword arguments.
-    """
+        Attributes:
+            markup (str): HTML markup to be parsed.
+            features (str): HTML parser to be used.
+            builder (TreeBuilder): TreeBuilder to be used.
+            parse_only (SoupStrainer): SoupStrainer to be used.
+            from_encoding (str): Encoding to be used.
+            exclude_encodings (list): Encodings to be excluded.
+            element_classes (dict): Dictionary of element classes.
+            **kwargs: Keyword arguments.
+        """
+        self.headers = self.set_headers()
+        super().__init__(markup, features, builder, parse_only, from_encoding, exclude_encodings, element_classes, **kwargs)
 
-    def set_headers(self, **kwargs):
+    def set_headers(self, *args):
         """
         Set headers for requests.
 
         Attributes:
             **kwargs: Keyword arguments.
-
-        Returns:
-            dict: Dictionary of headers.
+        Sets:
+            self.headers (dict): Headers for requests.
         """
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) \
-                AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 \
-                Safari/537.36',
+            'User-Agent': 'Mozilla/5.0'
         }
-        if kwargs:
-            headers.update(kwargs)
+        if args:
+            headers.update(*args)
 
-        return headers
+        self.headers = headers
 
     def session(self):
         """
@@ -47,7 +48,7 @@ class Scraper(BeautifulSoup):
         """
         return requests.Session()
     
-    def get_from_url(self, url:str, type:str="HTML", params=None, **kwargs):
+    def get_from_url(self, url:str, type:str="HTML", **kwargs):
         """
         Set markup from URL.
 
@@ -57,9 +58,11 @@ class Scraper(BeautifulSoup):
             params (dict): Parameters to be used.
             **kwargs: Keyword arguments.
 
+        Sets:
+            self.markup (str): Markup from URL.
         """
         session = self.session()
-        response = session.get(url, headers=self.set_headers(), params=params, **kwargs)
+        response = session.get(url, headers=self.headers, **kwargs)
 
         if type == "HTML":
             self.markup = response.text
@@ -81,7 +84,7 @@ class Scraper(BeautifulSoup):
             requests.Response: Response from post request.
         """
         session = self.session()
-        return session.post(url, data=data, headers=self.set_headers())
+        return session.post(url, data=data, headers=self.headers)
     
     def render_page(self, url: str):
         """
@@ -92,7 +95,7 @@ class Scraper(BeautifulSoup):
 
         """
         session = self.session()
-        response = session.get(url, headers=self.set_headers())
+        response = session.get(url, headers=self.headers)
 
         """
         This is the JavaScript code that will be executed in Node.js.

@@ -27,7 +27,7 @@ Features of **peviitor_pyscraper**:
 
 1. Downloading the content from a specific URL:
    ```py
-    from scraper import Scraper
+    from scraper.Scraper import Scraper
     scraper = Scraper()
     html = scraper.get_from_url('https://www.example.ro')
     print(html.prettify())
@@ -36,7 +36,7 @@ Features of **peviitor_pyscraper**:
 
     To extract all "a" tags that contain an "href" attribute starting with "https://" from the downloaded HTML code, you can use the following code:
     ```py
-    from scraper import Scraper
+    from scraper.Scraper import Scraper
     scraper = Scraper()
     html = scraper.get_from_url('https://www.example.ro')
     links = html.find_all('a', href=re.compile('^https://'))
@@ -46,7 +46,7 @@ Features of **peviitor_pyscraper**:
 
     To extract the first "h1" tag from the page:
     ```py
-    from scraper import Scraper
+    from scraper.Scraper import Scraper
     scraper = Scraper()
     html = scraper.get_from_url('https://www.example.ro')
     h1 = html.find('h1')
@@ -56,7 +56,7 @@ Features of **peviitor_pyscraper**:
 2. Downloading JSON content from a specific URL:
 
     ```py
-    from scraper import Scraper
+    from scraper.Scraper import Scraper
     scraper = Scraper()
     json = scraper.get_from_url('https://api.example.ro', type='JSON')
     print(json)
@@ -66,17 +66,21 @@ Features of **peviitor_pyscraper**:
 
     To make a POST request to a specific URL:
     ```py
-    from scraper import Scraper
+    from scraper.Scraper import Scraper
     scraper = Scraper()
     data = {'key1': 'value1', 'key2': 'value2'}
-    response = scraper.post('https://api.example.ro', data=data, type='JSON')
+    response = scraper.post('https://api.example.ro', data=data)
     json = response.json()
     print(json)
     ```
 
 3. The **peviitor_pyscraper** can render pages with dynamically generated elements.
+    To render a page with dynamically generated elements you need to install Node JS and
+    the `peviitor_jsscraper` package. To install the package run `npm i peviitor_jsscraper`
+    and then use the `render_page()` method.
+
     ```py
-    from scraper import Scraper
+    from scraper.Scraper import Scraper
     scraper = Scraper()
     html = scraper.render_page('https://www.example.ro')
     print(html.prettify())

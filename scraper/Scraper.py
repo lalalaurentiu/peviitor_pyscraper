@@ -72,7 +72,7 @@ class Scraper(BeautifulSoup):
         else:
             self.markup = response.text
         
-    def post(self, url: str, data: dict):
+    def post(self, url: str, data: dict, **kwargs):
         """
         Post data to URL.
 
@@ -84,7 +84,7 @@ class Scraper(BeautifulSoup):
             requests.Response: Response from post request.
         """
         session = self.session()
-        return session.post(url, data=data, headers=self.headers)
+        return session.post(url, data=data, headers=self.headers, **kwargs)
     
     def render_page(self, url: str):
         """

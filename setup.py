@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='peviitor_pyscraper',
-    version='0.0.6',
+    version='0.0.7',
     description='A simple scraper',
     url="https://github.com/lalalaurentiu/peviitor_pyscraper",
     author='Laurentiu Baluta',
@@ -22,12 +22,11 @@ setup(
         'certifi==2020.12.5',
         'chardet==4.0.0',
         'idna==2.10',
-        'lxml==4.9.2',
+        'lxml>=4.9.2',
         'requests==2.25.1',
         'soupsieve==2.2',
         'urllib3==1.26.3',
     ],
     python_requires='>=3.6',
 )
-
 
